@@ -149,9 +149,9 @@ thead td, thead th {
     $conditionManager = new ConditionManager();
 
     /* フリーワード検索のキーワードがある場合 */
+    $raw_keyword = $_GET["search"];
     if(isset($_GET["search"]) && is_string($_GET["search"]) && $_GET["search"]){
-        $raw_keyword = $_GET["search"];
-        $keywords = mb_split("/[ 　]+/", trim($raw_keyword));
+        $keywords = preg_split("/[ 　]+/u", trim($raw_keyword));
 
         // フリーワード検索で対象となるカラムを指定; 数値系のカラムは除く
         $target_columns = ["企業名", "フリガナ", "業種", "事業内容", "備考欄", "URL"];
