@@ -134,7 +134,7 @@ thead td, thead th {
         </section>
         <section>
             <h3>フリーワード</h3>
-            <input type="text" name="search" placeholder="Search..." autofocus value="<?=$_GET["search"] ?? ""?>">
+            <input type="text" name="search" placeholder="Search..." autofocus value="<?=isset($_GET["search"]) ? htmlspecialchars($_GET["search"]) : ""?>">
         </section>
         <div class="operations">
             <button class="search">検索</button>
@@ -149,8 +149,8 @@ thead td, thead th {
     $conditionManager = new ConditionManager();
 
     /* フリーワード検索のキーワードがある場合 */
-    $raw_keyword = $_GET["search"];
-    if(isset($_GET["search"]) && is_string($_GET["search"]) && $_GET["search"]){
+    $raw_keyword = $_GET["search"] ?? "";
+    if(is_string($raw_keyword) && $raw_keyword){
         $keywords = preg_split("/[ 　]+/u", trim($raw_keyword));
 
         // フリーワード検索で対象となるカラムを指定; 数値系のカラムは除く
